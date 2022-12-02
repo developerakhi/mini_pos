@@ -41,4 +41,17 @@ class Admin extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function payments(){
+        return $this->hasMany(Payment::class, 'payment_id', 'id');
+    }
+
+    public function receipts(){
+        return $this->hasMany(Receipt::class, 'receipt_id', 'id');
+    }
+
+    public function sales(){
+        return $this->hasMany(SaleInvoice::class, 'sale_invoices_id', 'id');
+    }
 }

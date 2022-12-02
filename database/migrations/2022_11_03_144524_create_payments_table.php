@@ -19,7 +19,7 @@ class CreatePaymentsTable extends Migration
             $table->foreignId('user_id');
             $table->double('amount');
             $table->date('date');
-            $table->string('note');
+            $table->string('note')->nullable();
             $table->timestamps();
         });
     }
