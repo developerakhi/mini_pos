@@ -27,9 +27,9 @@
                                     <th>ID</th>
                                     <th>Categories Title</th>
                                     <th>Title</th>
-                                    <th>Description</th>
                                     <th>Cost Price</th>
                                     <th>Price</th>
+                                    <th>Description</th>
                                     <th class="text-right">Actions</th>
                                     
                                 </tr>
@@ -39,9 +39,9 @@
                                     <th>ID</th>
                                     <th>Categories Title</th>
                                     <th>Title</th>
-                                    <th>Description</th>
                                     <th>Cost Price</th>
                                     <th>Price</th>
+                                    <th>Description</th>
                                     <th class="text-right">Actions</th>
                                     
                                 </tr>       
@@ -50,10 +50,11 @@
                                 @foreach ($products as $product)
                                     <tr>
                                         <td>{{$product->id}}</td>
-                                        <td>{{$product->title}}</td>
+                                        <td>{{$product->cat_title}}</td>
                                         <td>{{$product->product_title}}</td>
                                         <td>{{$product->cost_price}}</td>
                                         <td>{{$product->price}}</td>
+                                        <td>{{$product->description}}</td>
                                         <td class="text-right">
                                             
                                             <form action="{{ route('products.destroy', ['product' => $product->id]) }}" method="POST">

@@ -17,6 +17,10 @@ class SaleInvoice extends Model
     }
 
     public function items(){
-        return $this->hasMany(SaleItems::class, 'sale_invoice_id', 'product_id');
+        return $this->hasMany(SaleItem::class, 'sales_invoice_id', 'id');
+    }
+
+    public function receipts(){
+        return $this->hasMany(Receipt::class);
     }
 }

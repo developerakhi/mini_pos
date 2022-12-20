@@ -12,7 +12,7 @@ class Cetagory extends Model
 
     public function products(){
 
-        return $this->hasOne(Product::class, 'id', 'categories_id');
+        return $this->belongsTo(Product::class, 'categories_id', 'id');
     }
 
     public static function arrayForSelect(){

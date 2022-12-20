@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ReceiptRequest;
 use App\Models\Receipt;
+use App\Models\SaleInvoice;
+use App\Models\SaleItem;
 use App\Models\UserModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -25,18 +27,38 @@ class UserReceiptsController extends Controller
     }
 
     /* Create a Receipt */
-    public function store(ReceiptRequest $request, $user_id){
+    public function store(ReceiptRequest $request, $user_id, $invoice_id = null){
 
         $formData = $request->all();
         $formData['user_id'] = $user_id;
         $formData['admin_id'] = Auth::id();
+        // $sales_items = SaleItem::join('receipts','receipts.id','=','sale_items.sales_invoice_id')->where('sale_items.sales_invoice_id',$invoice_id)->select('sale_invoices.challan_no','sale_invoices.date','sale_invoices.amount')->first();
+
+        // $receipts = Receipt::join('sale_items','sale_items.sales_invoice_id','=','receipts.id')
+        //                 ->join('products','products.id','=','sale_items.product_id')
+        //                 ->where('sale_invoices.user_id', $user_id)
+        //                 ->where('sale_invoices.id',$invoice_id)
+        //                 ->select('sale_items.id','products.title as product_title','sale_items.price','sale_items.quantity','sale_items.total','sale_invoices.challan_no')
+        //                 ->get();
+
+        if($invoice_id){
+
+            $formData['sales_invoice_id'] = $invoice_id;
+        }
+
 
         if( Receipt::create($formData) ){
 
             Session::flash('message' ,'Receipt Added Successfully');
         }
 
-        return redirect()->route('user.receipts', ['id'=>$user_id]); 
+        if($invoice_id){
+            return redirect("users/invoices/user_id/$user_id/invoice_id/$invoice_id/");
+        } else {
+            return redirect()->route('user.receipts', ['id'=>$user_id]);
+        }
+
+         
     }
 
     /* Delete a Receipt */

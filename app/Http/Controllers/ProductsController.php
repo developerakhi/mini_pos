@@ -19,7 +19,7 @@ class ProductsController extends Controller
     {
     //    Join Query with eloquent ORM
                $products = Product::join('cetagories','cetagories.id','=','products.catagories_id')
-                        ->select('products.id','cetagories.title as cat_title','products.title as product_title','products.description','products.cost_price','products.price')
+                        ->select('products.id','cetagories.title as cat_title','products.title as product_title','products.description','products.cost_price as cost_price', 'products.price')
                         ->get();
                 return view('products.products',compact('products'));
 

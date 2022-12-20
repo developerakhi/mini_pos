@@ -14,15 +14,16 @@ class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
+     * 
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
          $this->data['users'] = UserModel::all();
          return view('users.users', $this->data);
+         
     }
-
+ 
     /**
      * Show the form for creating a new resource.
      *

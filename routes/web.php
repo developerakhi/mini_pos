@@ -44,13 +44,16 @@ Route::group(['middleware', 'auth'], function(){
     
 
     Route::get('users/sales/{id}', [UserSalesController::class, 'index'])->name('user.sales');
+    // Route::delete('users/sales/{id}', [UserSalesController::class, 'index'])->name('user.sales.destroy');
     Route::post('users/invoices/{id}', [UserSalesController::class, 'createInvoice'])->name('user.sales.store');
     
     Route::get('users/invoices/user_id/{user_id}/invoice_id/{invoice_id}', [UserSalesController::class, 'invoice'])->name('user.sales.invoice_details');
+    Route::delete('users/invoices/user_id/{user_id}/invoice_id/{invoice_id}', [UserSalesController::class, 'destroy'])->name('user.sales.destroy');
 
 
-    Route::post('users/invoices/{id}/{invoice_id}', [UserSalesController::class, 'store'])->name('user.sales.invoices.add_item');
-    Route::delete('users/invoices/{id}/{invoice_id}/{item_id}', [UserSalesController::class, 'destroy'])->name('user.sales.invoices.delete_item');
+    Route::post('users/user_id/{id}/invoices/{invoice_id}', [UserSalesController::class, 'addItem'])->name('user.sales.invoices.add_item');
+
+    Route::delete('users/invoices/{id}/{invoice_id}/{item_id}', [UserSalesController::class, 'destroyItem'])->name('user.sales.invoices.delete_item');
 
 
 
@@ -64,7 +67,7 @@ Route::group(['middleware', 'auth'], function(){
 
 
     Route::get('users/receipts/{id}', [UserReceiptsController::class, 'index'])->name('user.receipts');
-    Route::post('users/receipts/{id}', [UserReceiptsController::class, 'store'])->name('user.receipts.store');
+    Route::post('users/receipts/{id}/{invoice_id?}', [UserReceiptsController::class, 'store'])->name('user.receipts.store');
     Route::delete('users/receipts/{id}/{receipt_id}', [UserReceiptsController::class, 'destroy'])->name('user.receipts.destroy');
 
 

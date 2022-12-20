@@ -13,38 +13,61 @@
                             <th>Challen No</th>
                             <th>Customer</th>
                             <th>Date</th>
+                            <th>Items</th>
                             <th>Total</th>
                             <th class="text-right">Actions</th>
                         </tr>
                     </thead>
-                    <tfoot>
-                        <tr>
-                            <th>Challen No</th>
-                            <th>Customer</th>
-                            <th>Date</th>
-                            <th>Total</th>
-                            <th class="text-right">Actions</th>
-                        </tr>
-                                
-                    </tfoot>
+                    
                     <tbody>
+                        <?php
+                            $grandTotal = 0;
+                            $totalItem = 0; 
+                        ?>
                         @foreach ($user->sales as $sale)
                             <tr>
                                 <td>{{$sale->challan_no}}</td>
                                 <td>{{$user->user_name}}</td>
                                 <td>{{$sale->date}}</td>
-                                <td>100</td>
+                                <td>
+                                    <?php
+                                        $itemQty =  $sale->items()->sum('quantity');
+                                        $totalItem += $itemQty;
+                                        echo $itemQty; 
+                                    ?>
+                                </td>
+                                <td>
+                                    <?php
+                                        $total =  $sale->items()->sum('total');
+                                        $grandTotal += $total;
+                                        echo $total; 
+                                    ?>
+                                </td>
+                                {{-- <td>{{$grandTotal += $sale->items()->sum('quantity')}}</td> --}}
                                 <td class="text-right">
-                                    <form action="{{ route('users.destroy', ['user' => $user->id]) }}" method="POST">
+                                    <form action="{{ route('user.sales.destroy', ['user_id' => $user->id, 'invoice_id'=>$sale->id]) }}" method="POST">
                                         <a href="{{ route('user.sales.invoice_details', ['user_id'=>$user->id, 'invoice_id'=>$sale->id]) }}" class="btn btn-primary btn-sm"> <i class="fa fa-eye"> Show </i> </a>
-                                        @csrf
-                                        @method('DELETE')
-                                        <BUtton type="submit" onclick="return confirm('Are You Sure ?')" class="btn btn-danger btn-sm"><i class="fa fa-trash"> Delete</i></BUtton>
+                                        @if ($itemQty == 0)
+                                            @csrf
+                                            @method('DELETE')
+                                            <BUtton type="submit" onclick="return confirm('Are You Sure ?')" class="btn btn-danger btn-sm"><i class="fa fa-trash"> Delete</i></BUtton>
+                                        @endif
                                     </form> 
                                 </td>
                             </tr>
                         @endforeach    
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Challen No</th>
+                            <th>Customer</th>
+                            <th>Date</th>
+                            <th>{{$totalItem}}</th>
+                            <th>{{$grandTotal}}</th>
+                            <th class="text-right">Actions</th>
+                        </tr>
+                                
+                    </tfoot>
                 </table>
             </div>
         </div>
