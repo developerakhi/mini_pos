@@ -75,11 +75,8 @@ class UserSalesController extends Controller
                         ->get();
                       
 
-        $sales_items = SaleItem::join('sale_invoices','sale_invoices.id','=','sale_items.sales_invoice_id')
-        ->where('sale_items.sales_invoice_id',$invoice_id)
-        ->select('sale_invoices.challan_no','sale_invoices.date','sale_invoices.id')
-        ->first();
-
+        $sales_items = SaleInvoice::find($invoice_id);
+// dd($sales_items);
         // $product = Product::join('cetagories','cetagories.id','=','products.catagories_id')
         //                 ->where('products.id')
         //                 ->select('products.id','cetagories.title as cat_title','products.title as product_title','products.description','products.cost_price','products.price')

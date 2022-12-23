@@ -15,7 +15,7 @@ class SaleItem extends Model
     }
 
     public function receipts(){
-        return $this->hasOne(Receipt::class);
+        return $this->hasOne(Receipt::class, 'sales_invoice_id', 'id');
     }
 
     public function product(){

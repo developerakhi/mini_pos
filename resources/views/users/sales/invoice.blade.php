@@ -71,8 +71,9 @@
                             <i class="fa fa-plus"> Add Receipt </i>
                         </button></th>
                         <th colspan="2" class="text-right">Paid: </th>
-                        <th class="text-right">{{$totalPaid = $sales_items->receipts()->sum('amount')}}</th>  
+                        <th class="text-right">{{ $sales_items->receipts()->sum('amount')}}</th>  
                         <th></th>
+                        <?php $totalPaid=$sales_items->receipts()->sum('amount'); ?>
                     </tr>
                     <tr>
                         <th colspan="4" class="text-right">Due: </th>

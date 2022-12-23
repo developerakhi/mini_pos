@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CategoryRequest;
+use App\Models\Catagory;
 use App\Models\Cetagory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -44,7 +45,7 @@ class CategoriesController extends Controller
     {
         $formData = $request->all();
 
-        if( Cetagory::create($formData) ){
+        if( Catagory::create($formData) ){
 
             Session::flash('message' , $formData['title']  .  'Category Added Successfully');
         }

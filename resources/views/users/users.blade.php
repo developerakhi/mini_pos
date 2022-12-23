@@ -63,9 +63,17 @@
                                             <a href="{{ route('users.show', ['user'=>$user->id]) }}" class="btn btn-primary btn-sm"> <i class="fa fa-eye"> Show </i> </a>
                                             <a href="{{ route('users.edit', ['user'=>$user->id]) }}" class="btn btn-primary btn-sm"> <i class="fa fa-edit"> Edit </i> </a>
                                             
-                                            @csrf
-                                            @method('DELETE')
-                                            <BUtton type="submit" onclick="return confirm('Are You Sure ?')" class="btn btn-danger btn-sm"><i class="fa fa-trash"> Delete</i></BUtton>
+                                            @if ($user->sales()->count() == 0 
+                                                && $user->purchases()->count() == 0
+                                                && $user->receipts()->count() == 0
+                                                && $user->payments()->count() == 0
+                                            )
+                                                
+                                            
+                                                @csrf
+                                                @method('DELETE')
+                                                <BUtton type="submit" onclick="return confirm('Are You Sure ?')" class="btn btn-danger btn-sm"><i class="fa fa-trash"> Delete</i></BUtton>
+                                            @endif
                                         </form>
                                     </td>
                                 </tr>

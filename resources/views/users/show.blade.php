@@ -18,7 +18,6 @@
                                         }
                                         echo $total;
                                     ?>
-                                    {{-- 400 --}}
                                 </div>
                             </div>
                             <div class="col-auto">
@@ -37,7 +36,15 @@
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                     Total Purchase</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">215</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                    <?php 
+                                        $total = 0;
+                                        foreach ($user->purchases as $purchases) {
+                                            $total += $purchases->items()->sum('total');
+                                        }
+                                        echo $total;
+                                    ?>
+                                </div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
